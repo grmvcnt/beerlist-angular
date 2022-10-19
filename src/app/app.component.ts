@@ -9,6 +9,7 @@ import { Product } from "../model/product";
 })
 export class AppComponent {
   public products: Product[] = [];
+  public product: any;
 
   constructor(private httpClient: HttpClient) {
     this.fetchProducts();
@@ -18,6 +19,7 @@ export class AppComponent {
     this.httpClient.get<Product[]>('https://fakestoreapi.com/products')
       .subscribe((res: Product[]) => {
         this.products = res.slice(0, 6);
+        this.product = this.products[0];
       });
   }
 }
