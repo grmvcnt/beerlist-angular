@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { Product } from "../model/product";
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +10,27 @@ import { Product } from "../model/product";
 export class AppComponent {
   public products: Product[] = [];
   public product: any;
+  public displayThirdColumn: boolean | undefined;
+  serviceError: boolean | undefined;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private productService: ProductService) {
+    this.fetchProducts();
+  }
+
+  public ngOnInit(): void {
     this.fetchProducts();
   }
 
   public fetchProducts() {
-    this.httpClient.get<Product[]>('https://fakestoreapi.com/products')
+    this.productService.fetchProducts()
       .subscribe((res: Product[]) => {
-        this.products = res.slice(0, 6);
+        console.log(res);
+        this.products = res;
         this.product = this.products[0];
-      });
+      }, (err) => {
+        console.log(err);
+        this.serviceError = true;
+      }
+      );
   }
 }

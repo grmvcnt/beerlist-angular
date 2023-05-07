@@ -1,21 +1,11 @@
 <app-header></app-header>
 
-<div class="content">
-  <div class="container">
-    <div class="row align-items-start text-center">
-      <div class="col-4">
-        First Column
-      </div>
-      <div class="col-4">
-        Second Column
-      </div>
-      <div class="col-4">
-        Third Column
+<div class="main">
+  <div class="main-container">
+    <div class="main-container-grid">
+      <div class="main-container-grid-card" *ngFor="let product of products">
+        <app-beer [product]="product"></app-beer>
       </div>
     </div>
   </div>
-</div>
-
-<div class="text-center p-5">
-  <button type="button" class="btn btn-primary">Toggle Third Column</button>
 </div>
